@@ -6,19 +6,18 @@ import 'dart:async';
 class StoriesBloc {
   final _repository = Repository();
   final _topIds = PublishSubject<List<int>>(); // similar to Streamcontroller in streams
-  final _items = BehaviorSubject<int>(); // returns the latest item in the stream - in our case its the id
-  Observable<Map<int, Future<ItemModel>>> items; // The new stream returned from 
-  // the transformer -> its the cache map
+  final _itemsOutput = BehaviorSubject<Map<int, Future<ItemModel>>>();  // The new stream returned from the transformer -> its the cache map
+  final _itemsFetcher = PublishSubject<int>(); // returns the latest item in the stream - in our case its the id
 
   // Getters to Streams - acts as input to widgets
   Observable<List<int>> get topIds =>  _topIds.stream;
-
+  Observable<Map<int, Future<ItemModel>>> get items => _itemsOutput.stream; // stream
   // Getter to Sinks
-  Function(int) get fetchItem => _items.sink.add;
+  Function(int) get fetchItem => _itemsFetcher.sink.add;
 
   StoriesBloc() {
-    items = _items.stream.transform(_itemsTransformer());
-    // Note that this stream transformer returns a new stream
+    _itemsFetcher.stream.transform(_itemsTransformer()).pipe(_itemsOutput);
+    // pipe takes a stream of events anf forwards to to a destination
   }
 
   // Repository adds items to repository
@@ -42,6 +41,7 @@ class StoriesBloc {
 
   dispose() {
     _topIds.close();
-    _items.close();
+    _itemsFetcher.close();
+    _itemsOutput.close();
   }
 }

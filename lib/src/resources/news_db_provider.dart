@@ -64,7 +64,9 @@ class NewsDbProvider implements Source, Cache {
   Future<int> addItem(ItemModel item) {
     // we are not waiting for the result. So no need for await.
     return db.insert("Items",
-        item.toMap()); // why int as return type ? because thats what db returns
+        item.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.ignore // in case of it tries to duplicate
+        ); // why int as return type ? because thats what db returns
   }
   // putting it for abstract class stuff
   Future<List<int>> fetchTopIds() {
