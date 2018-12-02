@@ -15,7 +15,7 @@ class NewsDbProvider implements Source, Cache {
 
   void init() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
-    final path = join(documentsDirectory.path, "items.db"); // folder reference
+    final path = join(documentsDirectory.path, "items2.db"); // folder reference
     // create db
     db = await openDatabase(
         // either open existing or create it using onCreate
@@ -72,6 +72,11 @@ class NewsDbProvider implements Source, Cache {
   Future<List<int>> fetchTopIds() {
     return null;
   }
+  // clear db for refreshing the data
+  Future<int> clear() {
+    return db.delete("Items");
+  }
+
 }
 
 final newsDbProvider = NewsDbProvider(); // to preventing creating multiple isntances

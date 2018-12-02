@@ -40,6 +40,12 @@ class Repository {
     }
     return item;
   }
+
+  clearCache() async { // this returns a Future
+    for (var cache in caches) {
+      await cache.clear();
+    }
+  }
 }
 // abstract class tells that any object with the same 
 //methods or instance variables will be considered as the same type of class
@@ -50,4 +56,5 @@ abstract class Source {
 
 abstract class Cache {
   Future<int> addItem(ItemModel item);
+  Future<int> clear();
 }

@@ -18,7 +18,7 @@ class ItemModel {
     : id = parseJson['id'],
      deleted = parseJson['deleted'] ?? false, // if this property is not there then default to false
      type = parseJson['type'],
-     by = parseJson['by'],
+     by = parseJson['by'] ?? '',
      time = parseJson['time'],
      text = parseJson['text'] ?? '',
      dead = parseJson['dead'] ?? false,
@@ -26,8 +26,8 @@ class ItemModel {
      kids = parseJson['kids'] ?? [],
      url = parseJson['url'],
      score = parseJson['score'],
-     title = parseJson['title'],
-     descendants = parseJson['descendants'];
+     title = parseJson['title'] ?? '',
+     descendants = parseJson['descendants'] ?? 0;
 
     ItemModel.fromDb(Map<String, dynamic> parseJson)
     : id = parseJson['id'],

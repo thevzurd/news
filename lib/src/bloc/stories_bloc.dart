@@ -25,6 +25,10 @@ class StoriesBloc {
     final ids = await _repository.fetchTopIds();
     _topIds.sink.add(ids);
   }
+
+  clearCache() {
+    return _repository.clearCache(); // clearCache returns a future
+  }
 // make sure that we apply this transformer only one time.
 // otherwise it will create multiple instances of cache.
 // for that, we create a construstor (see above)
