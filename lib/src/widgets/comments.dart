@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import '../models/item_model.dart';
 import 'loading_container.dart';
+import 'package:flutter_html/flutter_html.dart';
 
 class Comment extends StatelessWidget {
   final int itemId;
@@ -45,10 +46,13 @@ class Comment extends StatelessWidget {
     );
   }
   Widget buildText(ItemModel item) {
-    final text = item.text
-    .replaceAll('&#x27;'," ' ")
+    final text = item.text;
+/*     .replaceAll('&#x27;'," ' ")
     .replaceAll('<p>','')
-    .replaceAll('</p>', '');
-    return Text(text);
+    .replaceAll('</p>', ''); */
+    // the text we recieve has html tags. we dont render it to prevent
+    // malacious script injection.
+    // However, using the flutter_html library, we can render the html content
+    return Html(data: text,);
   }
 }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
 import '../bloc/stories_provider.dart';
 import '../widgets/news_list_tile.dart';
 import '../widgets/refresh.dart';
@@ -9,8 +8,9 @@ class NewsList extends StatelessWidget {
     final bloc = StoriesProvider.of(
         context); // gives access to the bloc up in the app hierarchy
     // context gives the reference to the bloc of the stories provider
-    bloc.fetchTopIds(); // NEVER DO THIS - This is because the build
+    //bloc.fetchTopIds(); // NEVER DO THIS - This is because the build
     // method is called a million times each time it renders
+    // doing it in app.dart instead
     return Scaffold(
       appBar: AppBar(
         title: Text('Top News'),
