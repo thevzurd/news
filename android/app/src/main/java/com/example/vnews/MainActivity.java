@@ -1,4 +1,4 @@
-package com.example.news;
+package com.example.vnews;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;
